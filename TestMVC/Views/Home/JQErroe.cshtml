@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JQErroe</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                alert('ok');
+                $("#btnValidate1").click(function () {
+                    alert($("#txtNumber1").val());
+                    //var fileData = new FormData();
+                    //fileData.append('number', $("#txtNumber1").val());
+                    $.ajax({
+                        url: "@Url.Action("JQErroe1","Home")",
+                        data : '',
+                        type: 'POST',
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (data) {
+                            alert("Valid number.");
+                        },
+                        error: OnError
+                    });
+            });
+        });
+            function OnError(xhr, errorType, exception) {
+                var responseText;
+                $("#dialog").html("");
+                try {
+                    responseText = jQuery.parseJSON(xhr.responseText);
+                    $("#dialog").append("<div><b>" + errorType + " " + exception + "</b></div>");
+                    $("#dialog").append("<div><u>Exception</u>:<br /><br />" + responseText.ExceptionType + "</div>");
+                    $("#dialog").append("<div><u>StackTrace</u>:<br /><br />" + responseText.StackTrace + "</div>");
+                    $("#dialog").append("<div><u>Message</u>:<br /><br />" + responseText.Message + "</div>");
+                } catch (e) {
+                    responseText = xhr.responseText;
+                    $("#dialog").html(responseText);
+                }
+                $("#dialog").dialog({
+                    title: "jQuery Exception Details",
+                    width: 700,
+                    buttons: {
+                        Close: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            }
+    </script>
+        <style type="text/css">
+            body {
+                font - family: Arial;
+            font-size: 10pt;
+        }
+
+            #dialog {
+                height: 600px;
+            overflow: auto;
+            font-size: 10pt !important;
+            font-weight: normal !important;
+            background-color: #FFFFC1;
+            margin: 10px;
+            border: 1px solid #ff6a00;
+        }
+
+                #dialog div {
+                margin - bottom: 15px;
+        }
+        </style>
+</head>
+<body>
+    <form action="JQErroe1" method="post">
+        <div>
+            <u>1: When exception object is in the form of JSON object</u>
+            <br />
+            <br />
+            Enter Number:
+            <input id="txtNumber1" type="text" name="txtNumber1" />
+            <button type="submit" name="Validate" value="Validate" id="btnValidate1" class="btn btn-primary">Validate</button>
+            <div id="dialog" style="display: none"></div>
+        </div>
+    </form>
+</body>
+</html>
