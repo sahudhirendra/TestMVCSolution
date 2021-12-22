@@ -46,6 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PaytmChecksum, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PaytmChecksum.1.0.0\lib\PaytmChecksum.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -181,6 +184,7 @@
     <Content Include="Views\Home\Signzy.cshtml" />
     <Content Include="Views\Home\JQErroe.cshtml" />
     <Content Include="Views\Home\ShortUrl.cshtml" />
+    <Content Include="Views\Home\PayTM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
